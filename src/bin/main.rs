@@ -115,56 +115,9 @@ fn main() -> ! {
     let line_time_ms = drawing_time_ms / (num_drawn_lines as i32);
     let mut line_index = 0;
 
-    data = hsv2rgb(color);
-
     loop {
         info!("Traveling the triangle!");
-        // Iterate over the rainbow!
-
-        // draw the next line, this can take up to tau_s
-        // if critical_section::with(|cs|{
-        //     let is_line_trigger = *LINE_SYNC.borrow_ref(cs);
-        //     is_line_trigger.then(||{
-        //         (*LINE_SYNC.borrow_ref_mut(cs)).bitand_assign(false);
-        //     });
-        //     is_line_trigger
-        // })
-        // {
-        //     x0_output.set_high();
-        //     y0_output.set_high();
-        //     delay.delay_nanos(3000);
-        //     x0_output.set_low();
-        //     y0_output.set_low();
-        //     line_index += 1;
-        // }
-
-        // for line_index in 0..num_drawn_lines
-        // {
-        //     info!("Drawing line: {line_index}");
-        //     for current_time in 0..=line_time_ms
-        //     {
-        //         let cur_x = triangle[line_index][0];
-        //         let cur_y = triangle[line_index][1];
-        //         let delta_x = triangle[line_index+1][0] - cur_x;
-        //         let delta_y = triangle[line_index+1][1] - cur_y;
-        //         let scalex_index = current_time * delta_x / line_time_ms;
-        //         let scaley_index = current_time * delta_y / line_time_ms;
-                
-        //         data.r = 0u8;
-        //         data.g = (cur_x + scalex_index) as u8;
-        //         data.b = (cur_y + scaley_index) as u8;
-
-        //         if current_time % 100 == 0
-        //         {
-        //             info!("Current RBG value {data}");
-        //         }
-
-        //         led.write(brightness(gamma([data].into_iter()), level)).unwrap();
-
-        //         delay.delay_millis(20);
-        //     }
-            
-        // }
+        
     }
 }
 
