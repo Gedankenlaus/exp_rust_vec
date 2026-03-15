@@ -110,14 +110,29 @@ fn main() -> ! {
         [0,255]
     ];
 
-    let num_drawn_lines = triangle.len() - 1;
-    let drawing_time_ms: i32 = 2000;
-    let line_time_ms = drawing_time_ms / (num_drawn_lines as i32);
-    let mut line_index = 0;
+    // let drawing_time_ms: i32 = 2000;
+    // let line_time_ms = drawing_time_ms / (num_drawn_lines as i32);
+    let mut line_index: usize = 0;
+    let mut output_tick: usize = 0;
 
     loop {
         info!("Traveling the triangle!");
-        
+        critical_section::with(|cs|  
+            // trigger a new frame
+            (*LINE_SYNC.borrow_ref_mut(cs)).then(|| {
+                line_index += 1;
+                line_index %= triangle.len();
+                output_tick = 0;
+
+                x0_output.set_level((triangle[line_index][0] > 0).into());
+                y0_output.set_level((triangle[line_index][1] > 0).into());
+            })
+        );
+
+        (output_tick > triangle[line_index][0]).then(|| x0_output.set_high());
+        (output_tick > triangle[line_index][1]).then(|| y0_output.set_high());
+
+        output_tick += 1;
     }
 }
 
